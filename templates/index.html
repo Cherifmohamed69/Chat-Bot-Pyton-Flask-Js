@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and general layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #0078d4;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Message container */
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Style for messages */
+        .message {
+            display: flex;
+            max-width: 80%;
+            word-wrap: break-word;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        /* User question - right side */
+        .message.user {
+            align-self: flex-end;
+            background-color: #d1f7c4;
+            text-align: right;
+        }
+
+        /* Chatbot response - left side */
+        .message.bot {
+            align-self: flex-start;
+            background-color: #e9e9e9;
+            text-align: left;
+        }
+
+        /* Question button style */
+        .question-btn {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        .question-btn:hover {
+            background-color: #005a8a;
+        }
+
+        /* Scrollable question list */
+        .question-list-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .question-list-container ul {
+            display: inline-flex;
+        }
+
+        .question-list-container li {
+            list-style: none;
+            display: inline-block;
+        }
+
+        /* Response box */
+        #response-box {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3>Chatbot</h3>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- Dynamic conversation will appear here -->
+        </div>
+        
+        <!-- Scrollable question list -->
+        <div class="question-list-container">
+            <ul id="question-list">
+                {% for qa in questions %}
+                    <li><button class="question-btn" data-question="{{ qa.question }}">{{ qa.question }}</button></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.question-btn').click(function () {
+                const question = $(this).data('question');
+                
+                // Append user's question to the chatbox
+                $('#chat-box').append(`<div class="message user">${question}</div>`);
+                
+                // Send the question to the backend
+                $.ajax({
+                    url: '/get-response',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ question }),
+                    success: function (data) {
+                        // Append chatbot's response to the chatbox
+                        $('#chat-box').append(`<div class="message bot">${data.response}</div>`);
+                        // Scroll to the bottom of the chatbox
+                        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+                    },
+                    error: function () {
+                        $('#chat-box').append('<div class="message bot">Error retrieving the response.</div>');
+                        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

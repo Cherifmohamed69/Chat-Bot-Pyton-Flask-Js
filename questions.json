@@ -1,24 +1,6 @@
 [
     {"question": "What is Flask?", "response": "Flask is a lightweight Python web framework."},
     {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
-    {"question": "What is Python?", "response": "Python is a versatile programming language."},
     {"question": "How do I install Flask?", "response": "Use `pip install flask` to install Flask."}
   ]
   
